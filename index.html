@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WorkInStore · Pedidos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="grafiti">
+<button id="themeBtn" class="theme-fab" title="Alterar tema">◐ <span id="themeName">Grafiti</span></button>
+
+<div id="loader" class="loader hidden"><div class="spinner"></div><p>Carregando...</p></div>
+
+<!-- LOGIN -->
+<section id="loginView" class="view">
+  <form id="loginForm" class="card login-card">
+    <div class="brand"><span class="logo">W</span><h1 class="site-title">WorkInStore</h1></div>
+    <p class="muted">Acesso restrito ao administrador</p>
+    <label>E-mail<input type="email" id="email" required autocomplete="username"></label>
+    <label>Senha<input type="password" id="password" required autocomplete="current-password"></label>
+    <button class="btn primary" type="submit">Entrar</button>
+    <p id="loginMsg" class="error"></p>
+  </form>
+</section>
+
+<!-- APP -->
+<section id="appView" class="view hidden">
+  <header class="topbar">
+    <div class="brand"><span class="logo">W</span><h1 class="site-title">WorkInStore</h1></div>
+    <nav>
+      <button class="tab active" data-tab="gerar">Gerar</button>
+      <button class="tab" data-tab="pedidos">Pedidos</button>
+      <button class="tab" data-tab="layout">Layout</button>
+      <button id="logoutBtn" class="btn ghost">Sair</button>
+    </nav>
+  </header>
+
+  <main>
+    <div id="tab-gerar" class="panel">
+      <div class="card center">
+        <h2>Novo número de pedido</h2>
+        <button id="genBtn" class="btn primary big">Gerar número</button>
+        <div id="genResult" class="hidden">
+          <div id="genNumber" class="order-number"></div>
+          <textarea id="genPhrase" readonly rows="4"></textarea>
+          <button id="copyBtn" class="btn">Copiar frase</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-pedidos" class="panel hidden">
+      <div class="card">
+        <div class="row between"><h2>Pedidos</h2><input id="search" placeholder="Buscar número, nome, cidade..."></div>
+        <div id="ordersList" class="orders"></div>
+      </div>
+    </div>
+
+    <div id="tab-layout" class="panel hidden">
+      <form id="layoutForm" class="card grid">
+        <h2>Layout e estilo</h2>
+        <label>Título do site<input id="sTitle"></label>
+        <label>Letra do logo<input id="sLogo" maxlength="2"></label>
+        <label>Tema padrão
+          <select id="sTheme"><option value="grafiti">Grafiti</option><option value="preto">Preto</option><option value="claro">Claro</option></select>
+        </label>
+        <label>Cor de destaque personalizada (opcional)<input type="color" id="sAccent"><small><input type="checkbox" id="sAccentOn"> usar cor personalizada</small></label>
+        <label>Arredondamento dos cantos (px)<input type="range" id="sRadius" min="0" max="28"></label>
+        <label>Tamanho da fonte (px)<input type="range" id="sFont" min="13" max="20"></label>
+        <label>Texto da frase (use {numero})<textarea id="sPhrase" rows="4"></textarea></label>
+        <button class="btn primary" type="submit">Salvar layout</button>
+      </form>
+    </div>
+  </main>
+</section>
+
+<!-- MODAL EDITAR -->
+<dialog id="editDlg" class="card">
+  <form id="editForm" method="dialog" class="grid">
+    <h2>Pedido <span id="eNum"></span></h2>
+    <label>Nome do cliente<input id="eName"></label>
+    <label>Cidade<input id="eCity"></label>
+    <label>Rua<input id="eStreet"></label>
+    <div class="row"><label>Número<input id="eNumber"></label><label>Bairro<input id="eDistrict"></label></div>
+    <label>WhatsApp<input id="eWhats" placeholder="+55 11 99999-9999"></label>
+    <div class="row between">
+      <button type="button" id="eDelete" class="btn danger">Excluir</button>
+      <div class="row"><button type="button" id="eCancel" class="btn ghost">Cancelar</button><button type="submit" id="eSave" class="btn primary">Salvar</button></div>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast"></div>
+<script type="module" src="script.js"></script>
+</body>
+</html>
